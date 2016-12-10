@@ -1,0 +1,9 @@
+Makefile*
+*.stash
+obj/
+moc/
+ui/
+rcc/
+debug/
+release/
+*.pro.user
