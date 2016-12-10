@@ -9,6 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    m_state = S_Closed;
+
+    m_timer.setSingleShot(true);
     connect(ui->m_startBtn, SIGNAL(clicked(bool)),  SLOT(start()) );
     connect(&m_timer, SIGNAL(timeout()), SLOT(timerShot()) );
 }
@@ -33,10 +36,11 @@ void MainWindow::start()
 
 void MainWindow::timerShot()
 {
-    qDebug() << "shot";
-                if (m_count == 0)
+    qDebug() << "---shot on";
+    if (m_count == 0)
     {
         m_state = S_Closed;
+        m_midi.close();
         ui->m_startBtn->setEnabled(true);
         return;
     }
@@ -66,4 +70,5 @@ void MainWindow::timerShot()
         m_timer.start(m_duration);
     }
 
+        qDebug() << "---shot off";
 }
