@@ -25,6 +25,8 @@ public:
     bool open(const int _portNumber);
     bool close();
 
+    QStringList portNames() const;
+
     QString lastError() const;
 
 public slots:

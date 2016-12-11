@@ -1,5 +1,7 @@
 #include "mididevice.h"
 
+#include <QDebug>
+
 #include <rtmidi/RtMidi.h>
 
 /// TODO: handle exceptions from RtMidi
@@ -28,7 +30,6 @@ bool MidiDevice::open(const QString _portName)
         return false;
     }
 
-    /// TODO: check
     m_out->openPort(0, _portName.toStdString());
 
     return m_out->isPortOpen();
@@ -52,6 +53,17 @@ bool MidiDevice::close()
     m_out->closePort();
     m_error.clear();
     return false == m_out->isPortOpen();
+}
+
+QStringList MidiDevice::portNames() const
+{
+    QStringList p_list;
+    for (uint i = 0; i < m_out->getPortCount(); i++)
+    {
+        p_list << QString::fromStdString(m_out->getPortName(i));
+    }
+
+    return p_list;
 }
 
 QString MidiDevice::lastError() const

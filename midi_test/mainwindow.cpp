@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_timer.setSingleShot(true);
     connect(ui->m_startBtn, SIGNAL(clicked(bool)),  SLOT(start()) );
     connect(&m_timer, SIGNAL(timeout()), SLOT(timerShot()) );
+    ui->m_portBox->addItems(m_midi.portNames());
 }
 
 MainWindow::~MainWindow()
@@ -36,7 +37,6 @@ void MainWindow::start()
 
 void MainWindow::timerShot()
 {
-    qDebug() << "---shot on";
     if (m_count == 0)
     {
         m_state = S_Closed;
@@ -47,7 +47,8 @@ void MainWindow::timerShot()
 
     if (S_Closed == m_state)
     {
-        if (false == m_midi.open() )
+        int p_port = ui->m_portBox->currentIndex();
+        if (false == m_midi.open(p_port) )
         {
             qCritical() << "could't open midi " << m_midi.lastError();
             return;
@@ -69,6 +70,4 @@ void MainWindow::timerShot()
 
         m_timer.start(m_duration);
     }
-
-        qDebug() << "---shot off";
 }
