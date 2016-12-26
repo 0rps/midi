@@ -7,6 +7,8 @@ LIBS += -lwinmm
 
 include(../config.pri)
 
+DEFINES += RTMIDI_COMPILING
+
 HEADERS += \
     RtMidi.h \
     rtmidi_c.h

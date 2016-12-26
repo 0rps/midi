@@ -50,6 +50,14 @@
 #include <string>
 #include <vector>
 
+#undef DLL_COMPILING
+
+#ifdef RTMIDI_COMPILING
+#define COMPILING_DLL
+#endif
+
+#include <../include/dllapi.h>
+
 /************************************************************************/
 /*! \class RtMidiError
     \brief Exception handling class for RtMidi.
@@ -60,7 +68,7 @@
 */
 /************************************************************************/
 
-class RtMidiError : public std::exception
+class DLL_API RtMidiError : public std::exception
 {
  public:
   //! Defined RtMidiError types.
@@ -111,9 +119,9 @@ class RtMidiError : public std::exception
  */
 typedef void (*RtMidiErrorCallback)( RtMidiError::Type type, const std::string &errorText, void *userData );
 
-class MidiApi;
+class DLL_API MidiApi;
 
-class RtMidi
+class DLL_API RtMidi
 {
  public:
 
@@ -203,7 +211,7 @@ class RtMidi
 //
 // **************************************************************** //
 
-class RtMidiIn : public RtMidi
+class DLL_API RtMidiIn : public RtMidi
 {
  public:
 
@@ -345,7 +353,7 @@ class RtMidiIn : public RtMidi
 */
 /**********************************************************************/
 
-class RtMidiOut : public RtMidi
+class DLL_API RtMidiOut : public RtMidi
 {
  public:
 
@@ -464,7 +472,7 @@ protected:
   void *errorCallbackUserData_;
 };
 
-class MidiInApi : public MidiApi
+class DLL_API MidiInApi : public MidiApi
 {
  public:
 
@@ -523,7 +531,7 @@ class MidiInApi : public MidiApi
   RtMidiInData inputData_;
 };
 
-class MidiOutApi : public MidiApi
+class DLL_API MidiOutApi : public MidiApi
 {
  public:
 
