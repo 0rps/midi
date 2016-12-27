@@ -74,7 +74,7 @@ QString MidiDevice::lastError() const
 void MidiDevice::noteOn(const unsigned char _pitch, const unsigned char _velocity, unsigned char _port)
 {
     static unsigned char p_portMask = (unsigned char)0x0F;
-    static unsigned char p_noteOn = (unsigned char)0b10000000;
+    static unsigned char p_noteOn = (unsigned char)0b10010000;
     static unsigned char p_mask = (unsigned char) 0x7F;
 
     std::vector<unsigned char> p_msg = {(unsigned char)(p_noteOn | (p_portMask & _port)),
@@ -86,7 +86,7 @@ void MidiDevice::noteOn(const unsigned char _pitch, const unsigned char _velocit
 void MidiDevice::noteOff(const unsigned char _pitch, const unsigned char _velocity, unsigned char _port)
 {
     static unsigned char p_portMask = (unsigned char)0x0F;
-    static unsigned char p_noteOff = (unsigned char)0b10010000;
+    static unsigned char p_noteOff = (unsigned char)0b10000000;
     static unsigned char p_mask = (unsigned char) 0x7F;
 
     std::vector<unsigned char> p_msg = {(unsigned char)(p_noteOff | (p_portMask & _port)),
